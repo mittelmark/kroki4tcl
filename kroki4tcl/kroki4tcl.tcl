@@ -2,7 +2,7 @@
 #' ---
 #' title: krok4tcl - diagram converter for tcl using the kroki webservice
 #' author: Detlef Groth
-#' date: <230129.0922>
+#' date: <230129.0923>
 #' ---
 #' 
 #' # kroki4tcl - diagram converter for tcl using the kroki webservice
@@ -95,7 +95,7 @@ proc ::kroki4tcl::dia2file {infile outfile} {
     #' 
     #' > Arguments:
     #' 
-    #' > * _infile_  - diagram file
+    #'   * _infile_  - diagram file
     #'   * _outfile_ - image file with extension png, pdf or svg
     #' 
     #' > Returns: diagram code (text)
