@@ -1,7 +1,7 @@
 ---
 title: krok4tcl - diagram converter for tcl using the kroki webservice
 author: Detlef Groth
-date: <230129.0944>
+date: <230129.0945>
 ---
 
 # kroki4tcl - diagram converter for tcl using the kroki webservice
@@ -81,7 +81,7 @@ It can as well backtranslate such URL's into the diagram code.
 
   Arguments:
 
-    * _url_ -  kroki URL
+   * _url_ -  kroki URL
 
   Returns: diagram code (text)
 
