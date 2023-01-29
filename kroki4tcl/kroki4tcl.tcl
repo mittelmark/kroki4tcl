@@ -2,7 +2,7 @@
 #' ---
 #' title: krok4tcl - diagram converter for tcl using the kroki webservice
 #' author: Detlef Groth
-#' date: <230129.0945>
+#' date: <230129.0947>
 #' ---
 #' 
 #' # kroki4tcl - diagram converter for tcl using the kroki webservice
@@ -255,20 +255,20 @@ proc ::kroki4tcl::file2kroki {filename {dia ""} {ext png}} {
 proc ::kroki4tcl::kroki2dia {url} {
     #' **kroki4tcl::kroki2dia** *url*
     #' 
-    #'   Encodes the given kroki URL back to diagram text.
+    #'  Encodes the given kroki URL back to diagram text.
     #' 
-    #'   Arguments:
+    #'  Arguments:
     #' 
-    #'    * _url_ -  kroki URL
+    #'   * _url_ -  kroki URL
     #' 
-    #'   Returns: diagram code (text)
+    #'  Returns: diagram code (text)
     #' 
-    #'   Example:
+    #'  Example:
     #' 
-    #'   ```
-    #'   % kroki4tcl::kroki2dia https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
+    #'  ```
+    #'  % kroki4tcl::kroki2dia https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
     #'   class A { }
-    #'   ```
+    #'  ```
     #' 
     set text [regsub {.+/} $url ""]
     set dia [encoding convertfrom utf-8 [zlib decompress [binary decode base64 [string map {- + _ /} $text]]]]

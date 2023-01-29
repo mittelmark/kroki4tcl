@@ -1,7 +1,7 @@
 ---
 title: krok4tcl - diagram converter for tcl using the kroki webservice
 author: Detlef Groth
-date: <230129.0945>
+date: <230129.0947>
 ---
 
 # kroki4tcl - diagram converter for tcl using the kroki webservice
@@ -77,20 +77,20 @@ It can as well backtranslate such URL's into the diagram code.
 
 **kroki4tcl::kroki2dia** *url*
 
-  Encodes the given kroki URL back to diagram text.
+ Encodes the given kroki URL back to diagram text.
 
-  Arguments:
+ Arguments:
 
-   * _url_ -  kroki URL
+  * _url_ -  kroki URL
 
-  Returns: diagram code (text)
+ Returns: diagram code (text)
 
-  Example:
+ Example:
 
-  ```
-  % kroki4tcl::kroki2dia https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
+ ```
+ % kroki4tcl::kroki2dia https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
   class A { }
-  ```
+ ```
 
 **kroki4tcl::gui** *?path?*
 
