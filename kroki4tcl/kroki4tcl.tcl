@@ -2,7 +2,7 @@
 #' ---
 #' title: krok4tcl - diagram converter for tcl using the kroki webservice
 #' author: Detlef Groth
-#' date: <230129.0919>
+#' date: <230129.0922>
 #' ---
 #' 
 #' # kroki4tcl - diagram converter for tcl using the kroki webservice
@@ -192,10 +192,10 @@ proc ::kroki4tcl::dia2kroki {text {dia graphviz} {ext png}} {
     #' 
     #' > Example:
     #' 
-    #' > ```
-    #' > % kroki4tcl::kroki2dia "class A { }" plantuml png
-    #' > https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
-    #' > ```
+    #'   ```
+    #'   % kroki4tcl::kroki2dia "class A { }" plantuml png
+    #'   https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
+    #'   ```
     #' 
     set b64 [string map {+ - / _ = ""}  [binary encode base64 [zlib compress [encoding convertto utf-8 $text]]]]
     set uri https://kroki.io//$dia/$ext/$b64
