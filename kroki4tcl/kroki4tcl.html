@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Detlef Groth" />
+  <title>krok4tcl - diagram converter for tcl using the kroki webservice</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="mini.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">krok4tcl - diagram converter for tcl using the kroki webservice</h1>
+<p class="author">Detlef Groth</p>
+<p class="date">&lt;230129.0911&gt;</p>
+</header>
+<h1 id="kroki4tcl---diagram-converter-for-tcl-using-the-kroki-webservice">kroki4tcl - diagram converter for tcl using the kroki webservice</h1>
+<p>Converts diagram code into kroki URL’s and back.</p>
+<p>The package <em>kroki4tcl</em> takes diagram code for diagram languages like GraphViz, PlantUML, Ditaa or Pikchr and converts this into Kroki-URL’s. It can as well backtranslate such URL’s into the diagram code.</p>
+<h2 id="procedures">Procedures</h2>
+<p><strong>kroki4tcl::dia2file</strong> <em>infile outfile</em></p>
+<blockquote>
+<p>Encodes the given diagram file into a image file the diagram type and the image type are guessed on the given file extensions.</p>
+</blockquote>
+<blockquote>
+<p>This function requires the wget executable being in the PATH and for some cvombinations of diagrams and output format the cairosvg executable being in the path.</p>
+</blockquote>
+<blockquote>
+<p>Arguments:</p>
+</blockquote>
+<blockquote>
+<ul>
+<li><em>infile</em> - diagram file</li>
+<li><em>outfile</em> - image file with extension png, pdf or svg</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Returns: diagram code (text)</p>
+</blockquote>
+<blockquote>
+<p>Example:</p>
+</blockquote>
+<blockquote>
+<pre><code>kroki4tcl::dia2file test.pml test.png</code></pre>
+</blockquote>
+<p><strong>kroki4tcl::dia2kroki</strong> <em>text ?dia dia? ?ext ext?</em></p>
+<blockquote>
+<p>Encodes the given diagram text into a kroki URL.</p>
+</blockquote>
+<blockquote>
+<p>Arguments:</p>
+</blockquote>
+<blockquote>
+<ul>
+<li><em>text</em> - diagram code</li>
+<li><em>dia</em> - diagram type such as graphviz, plantuml, erd, ditaa, default: graphviz</li>
+<li><em>ext</em> - file extension such as svg, png, pdf, default: png</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Returns: kroki URL (text)</p>
+</blockquote>
+<blockquote>
+<p>Example:</p>
+</blockquote>
+<blockquote>
+<pre><code>% kroki4tcl::kroki2dia &quot;class A { }&quot; plantuml png
+https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ</code></pre>
+</blockquote>
+<p><strong>kroki4tcl::file2kroki</strong> <em>filename</em></p>
+<blockquote>
+<p>Encodes the given diagram file into a kroki URL based on the file extension or the given diagram type.</p>
+</blockquote>
+<blockquote>
+<p>Arguments:</p>
+</blockquote>
+<blockquote>
+<ul>
+<li><em>url</em> - kroki URL</li>
+<li><em>dia</em> - the diagram type, if not given it is guessed from the foile extension, defaults to “”</li>
+<li><em>ext</em> - the image file extension, either png, pdf or svg, default: png</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Returns: diagram code (text)</p>
+</blockquote>
+<blockquote>
+<p>Example:</p>
+</blockquote>
+<blockquote>
+<pre><code>kroki4tcl::file2kroki test.pml</code></pre>
+</blockquote>
+<p><strong>kroki4tcl::kroki2dia</strong> <em>url</em></p>
+<blockquote>
+<p>Encodes the given kroki URL back to diagram text.</p>
+</blockquote>
+<blockquote>
+<p>Arguments:</p>
+</blockquote>
+<blockquote>
+<ul>
+<li><em>url</em> - kroki URL</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>Returns: diagram code (text)</p>
+</blockquote>
+<blockquote>
+<p>Example:</p>
+</blockquote>
+<blockquote>
+<pre><code>% kroki4tcl::kroki2dia https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
+class A { }</code></pre>
+</blockquote>
+<p><strong>kroki4tcl::gui</strong> <em>?path?</em></p>
+<blockquote>
+<p>Initializes a graphical user interface for creating diagrams within the given widget <em>path</em></p>
+</blockquote>
+<h2 id="changelog">CHANGELOG</h2>
+<ul>
+<li>2023-01-29 - version 0.4.0 moved to own repo and docu updates</li>
+</ul>
+<h2 id="author">AUTHOR</h2>
+<p>Detlef Groth, Caputh-Schwielowsee</p>
+<h2 id="license">LICENSE</h2>
+<p>BSD 3-Clause “New” or “Revised” License</p>
+</body>
+</html>
