@@ -102,9 +102,9 @@ proc ::kroki4tcl::dia2file {infile outfile} {
     #' 
     #' > Example:
     #' 
-    #' > ```
+    #'   ```
     #'   kroki4tcl::dia2file test.pml test.png
-    #' > ```
+    #'  ```
     #' 
     variable maps
     variable cb

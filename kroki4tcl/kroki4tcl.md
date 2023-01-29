@@ -32,9 +32,9 @@ It can as well backtranslate such URL's into the diagram code.
 
 > Example:
 
-> ```
+  ```
   kroki4tcl::dia2file test.pml test.png
-> ```
+ ```
 
 **kroki4tcl::dia2kroki** *text ?dia dia? ?ext ext?*
 
