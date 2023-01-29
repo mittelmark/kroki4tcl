@@ -2,7 +2,7 @@
 #' ---
 #' title: krok4tcl - diagram converter for tcl using the kroki webservice
 #' author: Detlef Groth
-#' date: <230129.0911>
+#' date: <230129.0919>
 #' ---
 #' 
 #' # kroki4tcl - diagram converter for tcl using the kroki webservice
@@ -90,8 +90,8 @@ proc ::kroki4tcl::dia2file {infile outfile} {
     #'   and the image type are guessed on the given file extensions.
     #' 
     #' > This function requires the wget executable being in the PATH and
-    #' for some cvombinations of diagrams and output format the cairosvg
-    #' executable being in the path.
+    #'   for some cvombinations of diagrams and output format the cairosvg
+    #'   executable being in the path.
     #' 
     #' > Arguments:
     #' 
@@ -104,7 +104,7 @@ proc ::kroki4tcl::dia2file {infile outfile} {
     #' 
     #' > ```
     #'   kroki4tcl::dia2file test.pml test.png
-    #'   ```
+    #' > ```
     #' 
     variable maps
     variable cb
@@ -218,7 +218,7 @@ proc ::kroki4tcl::file2kroki {filename {dia ""} {ext png}} {
     #' > Example:
     #' 
     #' > ```
-    #' > kroki4tcl::file2kroki test.pml
+    #'   % kroki4tcl::file2kroki test.pml
     #' > ```
     #' 
     set imgext $ext
@@ -267,7 +267,7 @@ proc ::kroki4tcl::kroki2dia {url} {
     #' > ```
     #'   % kroki4tcl::kroki2dia https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
     #'   class A { }
-    #' ```
+    #' > ```
     #' 
     set text [regsub {.+/} $url ""]
     set dia [encoding convertfrom utf-8 [zlib decompress [binary decode base64 [string map {- + _ /} $text]]]]

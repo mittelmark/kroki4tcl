@@ -1,7 +1,7 @@
 ---
 title: krok4tcl - diagram converter for tcl using the kroki webservice
 author: Detlef Groth
-date: <230129.0911>
+date: <230129.0919>
 ---
 
 # kroki4tcl - diagram converter for tcl using the kroki webservice
@@ -20,8 +20,8 @@ It can as well backtranslate such URL's into the diagram code.
   and the image type are guessed on the given file extensions.
 
 > This function requires the wget executable being in the PATH and
-for some cvombinations of diagrams and output format the cairosvg
-executable being in the path.
+  for some cvombinations of diagrams and output format the cairosvg
+  executable being in the path.
 
 > Arguments:
 
@@ -34,7 +34,7 @@ executable being in the path.
 
 > ```
   kroki4tcl::dia2file test.pml test.png
-  ```
+> ```
 
 **kroki4tcl::dia2kroki** *text ?dia dia? ?ext ext?*
 
@@ -71,7 +71,7 @@ executable being in the path.
 > Example:
 
 > ```
-> kroki4tcl::file2kroki test.pml
+  % kroki4tcl::file2kroki test.pml
 > ```
 
 **kroki4tcl::kroki2dia** *url*
@@ -89,7 +89,7 @@ executable being in the path.
 > ```
   % kroki4tcl::kroki2dia https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
   class A { }
-```
+> ```
 
 **kroki4tcl::gui** *?path?*
 
