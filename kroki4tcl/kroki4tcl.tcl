@@ -2,7 +2,7 @@
 #' ---
 #' title: krok4tcl - diagram converter for tcl using the kroki webservice
 #' author: Detlef Groth
-#' date: <230129.0933>
+#' date: <230129.0944>
 #' ---
 #' 
 #' # kroki4tcl - diagram converter for tcl using the kroki webservice
@@ -181,22 +181,22 @@ proc ::kroki4tcl::dia2file {infile outfile} {
 proc ::kroki4tcl::dia2kroki {text {dia graphviz} {ext png}} {
     #' **kroki4tcl::dia2kroki** *text ?dia dia? ?ext ext?*
     #' 
-    #' Encodes the given diagram text into a kroki URL.
+    #'   Encodes the given diagram text into a kroki URL.
     #' 
-    #' Arguments:
+    #'   Arguments:
     #' 
-    #'  * _text_ - diagram code
-    #'  * _dia_  - diagram type such as graphviz, plantuml, erd, ditaa, default: graphviz
-    #'  * _ext_  - file extension such as svg, png, pdf, default: png
+    #'    * _text_ - diagram code
+    #'    * _dia_  - diagram type such as graphviz, plantuml, erd, ditaa, default: graphviz
+    #'    * _ext_  - file extension such as svg, png, pdf, default: png
     #' 
-    #'  Returns: kroki URL (text)
+    #'   Returns: kroki URL (text)
     #' 
-    #'  Example:
+    #'   Example:
     #' 
-    #'  ```
-    #'  % kroki4tcl::kroki2dia "class A { }" plantuml png
-    #'  https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
-    #'  ```
+    #'   ```
+    #'   % kroki4tcl::kroki2dia "class A { }" plantuml png
+    #'   https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
+    #'   ```
     #' 
     set b64 [string map {+ - / _ = ""}  [binary encode base64 [zlib compress [encoding convertto utf-8 $text]]]]
     set uri https://kroki.io//$dia/$ext/$b64
@@ -205,22 +205,22 @@ proc ::kroki4tcl::dia2kroki {text {dia graphviz} {ext png}} {
 proc ::kroki4tcl::file2kroki {filename {dia ""} {ext png}} {
     #' **kroki4tcl::file2kroki** *filename*
     #' 
-    #' Encodes the given diagram file into a kroki URL based on the
-    #' file extension or the given diagram type.
+    #'   Encodes the given diagram file into a kroki URL based on the
+    #'   file extension or the given diagram type.
     #' 
-    #' Arguments:
+    #'   Arguments:
     #' 
-    #'  * _url_ - kroki URL
-    #'  * _dia_ - the diagram type, if not given it is guessed from the foile extension, defaults to ""
-    #'  * _ext_ - the image file extension, either png, pdf or svg, default: png
+    #'    * _url_ - kroki URL
+    #'    * _dia_ - the diagram type, if not given it is guessed from the foile extension, defaults to ""
+    #'    * _ext_ - the image file extension, either png, pdf or svg, default: png
     #' 
-    #'  Returns: diagram code (text)
+    #'   Returns: diagram code (text)
     #' 
-    #'  Example:
+    #'   Example:
     #' 
-    #'  ```
-    #'  % kroki4tcl::file2kroki test.pml
-    #'  ```
+    #'   ```
+    #'   % kroki4tcl::file2kroki test.pml
+    #'   ```
     #' 
     set imgext $ext
     if {$dia in [list svg png pdf]} {
@@ -255,20 +255,20 @@ proc ::kroki4tcl::file2kroki {filename {dia ""} {ext png}} {
 proc ::kroki4tcl::kroki2dia {url} {
     #' **kroki4tcl::kroki2dia** *url*
     #' 
-    #' Encodes the given kroki URL back to diagram text.
+    #'   Encodes the given kroki URL back to diagram text.
     #' 
-    #' Arguments:
+    #'   Arguments:
     #' 
-    #'  * _url_ -  kroki URL
+    #'     * _url_ -  kroki URL
     #' 
-    #' Returns: diagram code (text)
+    #'   Returns: diagram code (text)
     #' 
-    #' Example:
+    #'   Example:
     #' 
-    #' ```
-    #' % kroki4tcl::kroki2dia https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
-    #' class A { }
-    #' ```
+    #'   ```
+    #'   % kroki4tcl::kroki2dia https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
+    #'   class A { }
+    #'   ```
     #' 
     set text [regsub {.+/} $url ""]
     set dia [encoding convertfrom utf-8 [zlib decompress [binary decode base64 [string map {- + _ /} $text]]]]
@@ -277,8 +277,8 @@ proc ::kroki4tcl::kroki2dia {url} {
 proc ::kroki4tcl::gui {{path ""}} {
     #' **kroki4tcl::gui** *?path?*
     #' 
-    #' Initializes a graphical user interface for creating
-    #' diagrams within the given widget *path*
+    #'   Initializes a graphical user interface for creating
+    #'   diagrams within the given widget *path*
     #' 
     package require Tk
     variable txt
