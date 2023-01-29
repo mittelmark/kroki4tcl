@@ -24,32 +24,22 @@
 <header id="title-block-header">
 <h1 class="title">krok4tcl - diagram converter for tcl using the kroki webservice</h1>
 <p class="author">Detlef Groth</p>
-<p class="date">&lt;230129.0923&gt;</p>
+<p class="date">&lt;230129.0928&gt;</p>
 </header>
 <h1 id="kroki4tcl---diagram-converter-for-tcl-using-the-kroki-webservice">kroki4tcl - diagram converter for tcl using the kroki webservice</h1>
 <p>Converts diagram code into kroki URL’s and back.</p>
 <p>The package <em>kroki4tcl</em> takes diagram code for diagram languages like GraphViz, PlantUML, Ditaa or Pikchr and converts this into Kroki-URL’s. It can as well backtranslate such URL’s into the diagram code.</p>
 <h2 id="procedures">Procedures</h2>
 <p><strong>kroki4tcl::dia2file</strong> <em>infile outfile</em></p>
-<blockquote>
 <p>Encodes the given diagram file into a image file the diagram type and the image type are guessed on the given file extensions.</p>
-</blockquote>
-<blockquote>
 <p>This function requires the wget executable being in the PATH and for some cvombinations of diagrams and output format the cairosvg executable being in the path.</p>
-</blockquote>
-<blockquote>
 <p>Arguments:</p>
-</blockquote>
 <ul>
 <li><em>infile</em> - diagram file</li>
 <li><em>outfile</em> - image file with extension png, pdf or svg</li>
 </ul>
-<blockquote>
 <p>Returns: diagram code (text)</p>
-</blockquote>
-<blockquote>
 <p>Example:</p>
-</blockquote>
 <pre><code>kroki4tcl::dia2file test.pml test.png</code></pre>
 <p><strong>kroki4tcl::dia2kroki</strong> <em>text ?dia dia? ?ext ext?</em></p>
 <blockquote>

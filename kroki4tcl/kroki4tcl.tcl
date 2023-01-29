@@ -2,7 +2,7 @@
 #' ---
 #' title: krok4tcl - diagram converter for tcl using the kroki webservice
 #' author: Detlef Groth
-#' date: <230129.0923>
+#' date: <230129.0928>
 #' ---
 #' 
 #' # kroki4tcl - diagram converter for tcl using the kroki webservice
@@ -86,25 +86,26 @@ namespace eval ::kroki4tcl {
 proc ::kroki4tcl::dia2file {infile outfile} {
     #' **kroki4tcl::dia2file** *infile outfile*
     #' 
-    #' > Encodes the given diagram file into a image file the diagram type
+    #'   Encodes the given diagram file into a image file the diagram type
     #'   and the image type are guessed on the given file extensions.
     #' 
-    #' > This function requires the wget executable being in the PATH and
+    #'   This function requires the wget executable being in the PATH and
     #'   for some cvombinations of diagrams and output format the cairosvg
     #'   executable being in the path.
     #' 
-    #' > Arguments:
+    #'   Arguments:
     #' 
     #'   * _infile_  - diagram file
     #'   * _outfile_ - image file with extension png, pdf or svg
     #' 
-    #' > Returns: diagram code (text)
+    #'   Returns: diagram code (text)
     #' 
-    #' > Example:
+    #'   Example:
     #' 
     #'   ```
     #'   kroki4tcl::dia2file test.pml test.png
-    #'  ```
+    #'   ```
+    #' 
     #' 
     variable maps
     variable cb
