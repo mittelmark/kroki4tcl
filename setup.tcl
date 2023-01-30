@@ -9,3 +9,8 @@ array set setup {
   include {kroki4tcl/*.tcl kroki4tcl/kroki4tcl.md}
 }
 
+if {$::argv0 eq [info script]} {
+    package require tclinstall
+    set ::argv0 "tclinstall"
+    tclinstall::install [info script]
+}
