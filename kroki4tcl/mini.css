@@ -6,13 +6,9 @@
         font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
         line-height: 1.2;
         padding: 1em;
-        margin: 30px;
-        max-width:  1000px;
+        margin: auto;
+        max-width:  900px;
     }
-    p > strong {
-        margin-left: -20px;
-    }
-    
     a {
         color: #0645ad;
         text-decoration: none;
@@ -94,9 +90,12 @@
     }
     /* fix, do not like bold for every keyword */
     code span.kw { color: #007020; font-weight: normal; } /* Keyword */
-     pre.sourceCode {
+     pre.sourceCode, pre.cmd {
         background: #fff6f6;
-    } 
+    }
+    pre.cmdout {
+        background: #fffff6;
+    }
     figure, p.author {
         text-align: center;
     }

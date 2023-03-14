@@ -86,7 +86,7 @@ namespace eval ::kroki4tcl {
 #' ## Procedures
 #' 
 proc ::kroki4tcl::dia2file {infile outfile {label ""}} {
-    #' **kroki4tcl::dia2file** *infile outfile*
+    #' **kroki4tcl::dia2file** *infile outfile ?label?*
     #' 
     #'   Encodes the given diagram file into a image file the diagram type
     #'   and the image type are guessed on the given file extensions.
@@ -99,11 +99,12 @@ proc ::kroki4tcl::dia2file {infile outfile {label ""}} {
     #' 
     #'   * _infile_  - diagram file
     #'   * _outfile_ - image file with extension png, pdf or svg
-    #'   * _label_   - optional label for code chunks in Markdown files
+    #'   * _label_   - optional label for code chunks in Markdown files,
+    #'                 default: empty string
     #' 
     #'   Returns: diagram code (text)
     #' 
-    #'   Example:
+    #'   Examples:
     #' 
     #'   ```
     #'   kroki4tcl::dia2file test.pml test.png
@@ -572,7 +573,9 @@ proc ::kroki4tcl::fileExit {} {
 #' ## CHANGELOG
 #' 
 #' * 2023-01-29 - version 0.4.0 moved to own repo and docu updates
-#' 
+#' * 2023-03-14 - version 0.5.0 version with label support for Markdown files
+#'                with code chunks 
+#'
 #' ## AUTHOR
 #' 
 #' Detlef Groth, Caputh-Schwielowsee
