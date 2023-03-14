@@ -13,6 +13,8 @@ if {[info exists argv0] && $argv0 eq [info script]} {
         puts "\nExamples:\n"
         puts "  tclmain -m kroki4tcl main infile.ditaa             -> print kroki URL to terminal"
         puts "  tclmain -m kroki4tcl main infile.ditaa outfile.svg -> convert diagram to svg file"
+        puts "  tclmain -m kroki4tcl main infile.md    outfile.md  -> convert first code chunk to svg file"
+        puts "  tclmain -m kroki4tcl main infile.md    outfile.md  name -> convert code chunk with label `name` to svg file"
         puts "  tclmain -m kroki4tcl main  --gui infile.ditaa      -> open file in GUI"
         puts "  tclmain -m kroki4tcl main infile.md                -> open Markdown file in GUI"
     }
@@ -36,9 +38,13 @@ if {[info exists argv0] && $argv0 eq [info script]} {
             } else {
                 puts "Error: File [lindex $argv 0] does not exists!"
             }
-        } elseif {[llength $argv] == 2} {
+        } elseif {[llength $argv] >= 2} {
             if {[file exists [lindex $argv 0]]} {
-                ::kroki4tcl::dia2file [lindex $argv 0] [lindex $argv 1]
+                if {[llength $argv] == 2} {
+                    ::kroki4tcl::dia2file [lindex $argv 0] [lindex $argv 1]
+                } else {
+                    ::kroki4tcl::dia2file [lindex $argv 0] [lindex $argv 1] [lindex $argv 2]
+                }
             } else {
                 puts "Error: File [lindex $argv 0] does not exists!"
             }

@@ -83,7 +83,7 @@ namespace eval ::kroki4tcl {
 
 #' ## Procedures
 #' 
-proc ::kroki4tcl::dia2file {infile outfile} {
+proc ::kroki4tcl::dia2file {infile outfile {label ""}} {
     #' **kroki4tcl::dia2file** *infile outfile*
     #' 
     #'   Encodes the given diagram file into a image file the diagram type
@@ -97,6 +97,7 @@ proc ::kroki4tcl::dia2file {infile outfile} {
     #' 
     #'   * _infile_  - diagram file
     #'   * _outfile_ - image file with extension png, pdf or svg
+    #'   * _label_   - optional label for code chunks in Markdown files
     #' 
     #'   Returns: diagram code (text)
     #' 
@@ -104,6 +105,7 @@ proc ::kroki4tcl::dia2file {infile outfile} {
     #' 
     #'   ```
     #'   kroki4tcl::dia2file test.pml test.png
+    #'   kroki4tcl::dia2file test.md  test.png pumlexample
     #'   ```
     #' 
     #' 
@@ -115,6 +117,26 @@ proc ::kroki4tcl::dia2file {infile outfile} {
     }
     set ext [string range [file extension $infile] 1 end]
     set oxt [string range [file extension $outfile] 1 end]
+    set ftype "dia"
+    if {$ext in [list "txt" "md" "Rmd" "Tmd"]} {
+        set fin [open $infile r]
+        set cnt [read $fin]
+        foreach line [split $cnt "\n"] {
+           if {$label eq "" && [regexp {``` ?\{.*dia="(.+?)".*\}} $line -> dia]} {
+              set ext $dia
+              break
+          } elseif {$label ne "" && [regexp "``` ?\{.*dia=\"(.+?)\".* label=\"$label\".*\}" $line -> dia]} {
+              set ext $dia
+              break
+
+          } elseif {$label ne "" && [regexp "``` ?\{.*label=\"$label\" .*dia=\"(.+?)\".*\}" $line -> dia]} {
+            set ext $dia
+            break 
+          } 
+        }
+        close $fin
+        set ftype "md"
+    }
     if {$ext eq "txt"} {
         set ext [::kroki4tcl::getExtension $::kroki4tcl::type]
     } 
@@ -155,9 +177,23 @@ proc ::kroki4tcl::dia2file {infile outfile} {
     if [catch {open $infile r} infh] {
         puts "Cannot open $infile"
     } else {
+        set flag true
+        if {$ftype eq "md"} {
+            set flag false
+        }
         while {[gets $infh line] >= 0} {
-            append text "$line\n"
-            
+            if {$label eq "" && !$flag && [regexp {^.{0,2}```} $line]} {
+                set flag true
+                continue
+            } elseif {$label ne "" && !$flag && [regexp "^.{0,2}```.+label=\"$label\"" $line]} {
+                set flag true
+                continue
+            } elseif {$flag && [regexp {^.{0,2}```} $line]} {
+                set flag false
+                break
+            } elseif {$flag} {
+                append text "$line\n"
+            }
         }
         close $infh
     }
@@ -230,6 +266,18 @@ proc ::kroki4tcl::file2kroki {filename {dia ""} {ext png}} {
     if {$dia eq ""} {
         variable maps
         set ext [string range [file extension $filename] 1 end]
+        if {$ext eq "txt"} {
+            set fin [open $filename r]
+            set cnt [read $fin]
+            foreach line [split $cnt "\n"] {
+                if {[regexp {``` ?\{.*dia="(.+?)".*\}} $line -> dia]} {
+                    set ext $dia
+                } elseif {[regexp {```} $line]} {
+                    break
+                } 
+            }
+            close $fin
+        }
         if {!($ext in [dict keys $maps])} {
             puts "Error: known file extension `$ext`, valid extensions are `[join [dict keys $maps]`, {`, `}]!"
         }
@@ -243,6 +291,9 @@ proc ::kroki4tcl::file2kroki {filename {dia ""} {ext png}} {
     } else {
         set code ""
         while {[gets $infh line] >= 0} {
+            if {[regexp {^.{0,2}```} $line]} {
+                continue
+            }
             append code "$line\n"
             
         }
@@ -297,7 +348,7 @@ proc ::kroki4tcl::gui {{path ""}} {
     pack $path.top.ent -side left -padx 5 -pady 5
     #   Reload
     foreach btn [list New Open Save SaveAs Dia2Url Url2Dia Help Exit] {
-        ttk::button "$path.top.[string tolower $btn]" -width 8 -text $btn -command ::kroki4tcl::file$btn
+    ttk::button "$path.top.[string tolower $btn]" -width 8 -text $btn -command ::kroki4tcl::file$btn
         pack "$path.top.[string tolower $btn]" -side left -padx 5 -pady 5
     }
     pack $path.top -side top
