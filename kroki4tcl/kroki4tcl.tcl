@@ -27,7 +27,9 @@
 #                - 2022-02-18 - initial version
 #                - 2022-02-23 - Github release with extended GUI and Markdown code chunk support 
 #                - 2022-02-25 - fix for loading Markdown files from command line into GUI, fix for Dia2URL for Markdown chunks
-#                - 2023-01-29 - placing in its own Gihub page and adding inline documentation  
+#                - 2023-01-29 - placing in its own Github page and adding inline documentation
+#                - 2023-03-14 - version 0.5.0 extracting named code chunks from
+#                  Markdown files via terminal
 #	
 ##############################################################################
 #
@@ -36,7 +38,7 @@
 #  License: BSD 
 # 
 package require Tcl         8.6
-package provide kroki4tcl 0.4.0
+package provide kroki4tcl 0.5.0
 # initial code on the Wiki page
 # https://wiki.tcl-lang.org/page/dia2kroki
 # proc dia2kroki {text {dia graphviz} {ext svg}} {
