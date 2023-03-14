@@ -2,9 +2,9 @@
 #' ---
 #' title: krok4tcl - diagram converter for tcl using the kroki webservice
 #' author: Detlef Groth
-#' date: <230129.0947>
+#' date: 2023-03-14 15:39:59 +0100(CET)
 #' ---
-#' 
+#'  
 #' # kroki4tcl - diagram converter for tcl using the kroki webservice
 #' 
 #' Converts diagram code into kroki URL's and back.
