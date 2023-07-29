@@ -17,7 +17,7 @@
 #
 #  Created By    : Detlef Groth
 #  Created       : Fri Feb 18 05:50:50 2022
-#  Last Modified : <230129.0717>
+#  Last Modified : <230729.1433>
 #
 #  Description	 : Using the kroki webservice to create diagram charts
 #
@@ -38,7 +38,7 @@
 #  License: BSD 
 # 
 package require Tcl         8.6
-package provide kroki4tcl 0.5.0
+package provide kroki4tcl 0.5.1
 # initial code on the Wiki page
 # https://wiki.tcl-lang.org/page/dia2kroki
 # proc dia2kroki {text {dia graphviz} {ext svg}} {
@@ -233,7 +233,7 @@ proc ::kroki4tcl::dia2kroki {text {dia graphviz} {ext png}} {
     #'   Example:
     #' 
     #'   ```
-    #'   % kroki4tcl::kroki2dia "class A { }" plantuml png
+    #'   % kroki4tcl::dia2kroki "class A { }" plantuml png
     #'   https://kroki.io/plantuml/svg/eNpLzkksLlZwVKiuBQAUCgOQ
     #'   ```
     #' 
@@ -326,6 +326,73 @@ proc ::kroki4tcl::kroki2dia {url} {
     #' 
     set text [regsub {.+/} $url ""]
     set dia [encoding convertfrom utf-8 [zlib decompress [binary decode base64 [string map {- + _ /} $text]]]]
+}
+proc ::kroki4tcl::dia2puml {text {ext png}} {
+    #' **kroki4tcl::dia2puml** *text ?ext ext?*
+    #' 
+    #'   Encodes the given diagram text into a PlantUML URL.
+    #' 
+    #'   Arguments:
+    #' 
+    #'    * _text_ - diagram code
+    #'    * _ext_  - file extension such as svg or png, default: png
+    #' 
+    #'   Returns: PlantUML URL (text)
+    #' 
+    #'   Example:
+    #' 
+    #'   ```
+    #'   % kroki4tcl::dia2puml "class B { }" 
+    #'   https://www.plantuml.com/plantuml/png/~1U9nBpaaiBbPmKgXMg0K05s83iG==
+    #'   ```
+    #' 
+
+    set b64 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
+    set pml 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_
+
+    set lmapper [list]
+    set i 0
+    foreach char [split $b64 ""] {
+        lappend lmapper $char
+        lappend lmapper [string range $pml $i $i]
+        incr i
+    }
+    # unclear while string range 2 end-4
+    set b64 [string map $lmapper [binary encode base64 [string range [zlib compress [encoding convertto utf-8 $text]] 0 end]]]
+    set uri https://www.plantuml.com/plantuml/$ext/~1$b64
+    return $uri
+}
+
+proc ::kroki4tcl::puml2dia {url} {
+    #' **kroki4tcl::puml2dia** *url*
+    #' 
+    #'  Encodes the given PlantUML URL back to diagram text.
+    #' 
+    #'  Arguments:
+    #' 
+    #'   * _url_ -  PlantUML URL
+    #' 
+    #'  Returns: diagram code (text)
+    #' 
+    #'  Example:
+    #' 
+    #'  ```
+    #'  % kroki4tcl::puml2dia https://www.plantuml.com/plantuml/svg/~1U9nBpaaiBbPmKgXMg0K05s83iG==
+    #'   class B { }
+    #'  ```
+    #' 
+    set b64 ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
+    set pml 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_
+    set lmapper [list]
+    set i 0
+    foreach char [split $pml ""] {
+        lappend lmapper $char
+        lappend lmapper [string range $b64 $i $i]
+        incr i
+    }
+    set text [regsub {.+/} $url ""]
+    set text [regsub {^~1} $text ""]
+    set dia [encoding convertfrom utf-8 [zlib decompress [binary decode base64 [string map $lmapper $text]]]]
 }
 
 proc ::kroki4tcl::gui {{path ""}} {
